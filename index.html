@@ -195,5 +195,97 @@
     }
 </script>
 
+<style>
+  /* Button လှလှလေးရဲ့ ဒီဇိုင်း */
+  .ai-chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745; /* အစိမ်းရောင် (စိုက်ပျိုးရေးနှင့်လိုက်ဖက်ရန်) */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+  }
+
+  .ai-chat-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+  }
+
+  /* Chat window သေးသေးလေး */
+  #ai-chat-window {
+    display: none;
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  /* ပေါ်လာတဲ့အခါ animation လေးထည့်ထားပါတယ် */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ဖုန်းနဲ့ကြည့်ရင် window အရွယ်အစားကို အနည်းငယ်ချိန်ညှိပေးထားပါတယ် */
+  @media screen and (max-width: 480px) {
+    #ai-chat-window {
+      width: 90%;
+      right: 5%;
+      height: 70vh;
+    }
+  }
+</style>
+
+<button class="ai-chat-button" onclick="toggleAIChat()">
+  <span>💬 AI နှင့် တိုင်ပင်ပါ</span>
+</button>
+
+<div id="ai-chat-window">
+  <iframe
+    id="poe-iframe"
+    src="https://poe.com/သင်တောက်ဆောက်ထားတဲ့-Bot-Link" 
+    style="width: 100%; height: 100%; border: none;">
+  </iframe>
+</div>
+
+<script>
+  function toggleAIChat() {
+    var chatWin = document.getElementById("ai-chat-window");
+    if (chatWin.style.display === "none" || chatWin.style.display === "") {
+      chatWin.style.display = "block";
+    } else {
+      chatWin.style.display = "none";
+    }
+  }
+
+  // Window အပြင်ဘက်ကိုနှိပ်ရင် ပိတ်သွားအောင် လုပ်ထားချင်ပါက (Optional)
+  window.onclick = function(event) {
+    var chatWin = document.getElementById("ai-chat-window");
+    var chatBtn = document.querySelector(".ai-chat-button");
+    if (event.target !== chatBtn && !chatBtn.contains(event.target) && event.target !== chatWin && !chatWin.contains(event.target)) {
+        chatWin.style.display = "none";
+    }
+  }
+</script>
+
 </body>
 </html>
