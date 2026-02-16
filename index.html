@@ -3,109 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kachin Farmer Tech ၊ ပဲငပိ လမ်းညွှန်</title>
+    <title>Kachin Farmer Tech | စိုက်ပျိုးရေးနည်းပညာ</title>
     <link href="https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2e7d32; --secondary: #fbc02d; --light: #f4f9f4; --dark: #1b5e20; }
-        body { font-family: 'Pyidaungsu', sans-serif; line-height: 1.6; margin: 0; background-color: var(--light); color: #333; }
-        header { background-color: var(--primary); color: white; padding: 2.5rem 1rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        nav { background: var(--dark); padding: 12px; position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        nav a { color: white; text-decoration: none; font-size: 0.9rem; padding: 5px 12px; border-radius: 4px; transition: 0.3s; }
-        nav a:hover { background: var(--primary); }
+        :root { --primary: #2e7d32; --secondary: #fbc02d; --light: #f4f9f4; --dark: #1b5e20; --accent: #ff9800; }
+        body { font-family: 'Pyidaungsu', sans-serif; line-height: 1.6; margin: 0; background-color: var(--light); color: #333; scroll-behavior: smooth; }
+        header { background: linear-gradient(rgba(27,94,32,0.8), rgba(27,94,32,0.8)), url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&q=80&w=800'); background-size: cover; color: white; padding: 3rem 1rem; text-align: center; }
+        nav { background: var(--dark); padding: 12px; position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-size: 0.85rem; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); }
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        .card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); }
-        .badge { background: var(--secondary); color: black; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
-        .btn { display: inline-block; background: var(--primary); color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; margin-top: 10px; border: none; cursor: pointer; width: 100%; font-size: 1rem; font-weight: bold; }
-        input { padding: 12px; width: 100%; border-radius: 8px; border: 2px solid #ddd; margin-bottom: 15px; box-sizing: border-box; font-size: 1rem; }
-        input:focus { border-color: var(--primary); outline: none; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-top: 5px solid var(--primary); }
+        .btn { display: inline-block; background: var(--primary); color: white; padding: 12px; text-decoration: none; border-radius: 8px; border: none; cursor: pointer; width: 100%; font-size: 1rem; font-weight: bold; margin-top: 10px; }
+        input { padding: 12px; width: 100%; border-radius: 8px; border: 2px solid #ddd; margin-bottom: 15px; box-sizing: border-box; }
+        table { width: 100%; margin-top: 15px; }
         td { padding: 10px; border-bottom: 1px solid #eee; }
-        .recipe-box { background: #f1f8e9; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 0.9rem; }
-        .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 20px; }
-        .social-links a { color: var(--primary); font-weight: bold; text-decoration: none; font-size: 1.1rem; }
-        footer { text-align: center; padding: 30px; color: #666; font-size: 0.85rem; }
+        .recipe-box { background: #e8f5e9; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 5px solid var(--primary); }
+        
+        /* Chat UI */
+        #chat-window { position: fixed; bottom: 20px; right: 20px; width: 280px; z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 15px; overflow: hidden; display: none; flex-direction: column; background: white; }
+        #chat-header { background: var(--primary); color: white; padding: 12px; font-weight: bold; display: flex; justify-content: space-between; cursor: pointer; }
+        #chat-messages { height: 300px; overflow-y: auto; padding: 15px; font-size: 0.9rem; }
+        #chat-input-area { display: flex; padding: 10px; border-top: 1px solid #eee; }
+        #chat-trigger { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; padding: 15px; border-radius: 50%; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 999; }
+        
+        /* Contact Buttons */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .contact-btn { padding: 10px; border-radius: 8px; text-decoration: none; color: white; text-align: center; font-weight: bold; font-size: 0.9rem; }
+        .bg-fb { background: #1877F2; }
+        .bg-call { background: var(--accent); }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Kachin Farmer Tech</h1>
-    <p>ပဲငပိ (ပဲပုပ်) စိုက်ပျိုးရေးနှင့် နည်းပညာ</p>
+    <p>ပဲပုတ် စိုက်ပျိုးရေးနည်းပညာ </p>
 </header>
 
 <nav>
-    <a href="#guides">စိုက်ပျိုးနည်း</a>
-    <a href="#geography">ပထဝီဝင်</a>
     <a href="#calculator">တွက်ချက်စက်</a>
-    <a href="#social">ချိတ်ဆက်ရန်</a>
+    <a href="#recipe">ဖော်စပ်နည်း</a>
+    <a href="#contact">ဆက်သွယ်ရန်</a>
 </nav>
 
 <div class="container">
     
-    <div class="card" id="guides">
-        <span class="badge">ယနေ့ - ဖေဖော်ဝါရီ ၁၆</span>
-        <h2>🌱 လက်ရှိလုပ်ဆောင်ရန်</h2>
-        <p>ပဲပုပ်ပင်များ ပန်းပွင့်ချိန်ရောက်ရှိနေပြီဖြစ်သည်။ ဤအချိန်တွင် <strong>နိုက်ထရိုဂျင်နှင့် ပိုတက်စီယမ်</strong> ကြွယ်ဝသော သဘာဝအားဆေးများကို ဂရုစိုက်ကျွေးပေးပါ။</p>
-    </div>
-
-    <div class="card" id="geography">
-        <h2>📍 ကချင်ပြည်နယ် ပထဝီဝင်အကြံပြုချက်</h2>
-        <p>ကချင်ပြည်နယ်၏ မြေဆီလွှာသည် အက်ဆစ်ဓာတ်ကိန်း (pH) များတတ်သဖြင့် <strong>ထင်းပြာရည်</strong> ကို အချိုးကျရောစပ်အသုံးပြုခြင်းက ပဲပုပ်ပင်များအတွက် အထူးသင့်လျော်ပါသည်။</p>
-    </div>
-
     <div class="card" id="calculator">
-        <h2>📊 သဘာဝအားဆေးနှင့် မြေဧက တွက်ချက်စက်</h2>
-        <p>မိမိစိုက်ပျိုးမည့် <strong>ဧက</strong> ကို ရိုက်ထည့်ပါ -</p>
-        <input type="number" id="acreInput" step="0.01" placeholder="ဥပမာ - 1.25">
-        <button onclick="calculateDetailed()" class="btn">တွက်ချက်မည်</button>
+        <h2>📊 မြေဧကနှင့် ဆေးနှုန်းထားတွက်ချက်စက်</h2>
+        <input type="number" id="acreInput" step="0.01" placeholder="စိုက်ပျိုးမည့် ဧက (ဥပမာ - 1.25)">
+        <button onclick="calculate()" class="btn">တွက်ချက်မည်</button>
         
         <div id="resultArea" style="display: none;">
-            <h3>✅ လိုအပ်မည့် ပမာဏများ</h3>
             <table>
                 <tr><td><strong>၁၀၀ လီတာ သဘာဝ NPK:</strong></td><td><span id="npkVal">0</span> လီတာ</td></tr>
                 <tr><td><strong>သဘာဝပိုးသတ်ဆေး:</strong></td><td><span id="pestVal">0</span> လီတာ</td></tr>
-                <tr><td><strong>လိုအပ်မည့် ရေပမာဏ:</strong></td><td><span id="waterVal">0</span> ဂါလံခန့်</td></tr>
+                <tr><td><strong>လိုအပ်မည့် ရေ:</strong></td><td><span id="waterVal">0</span> ဂါလံခန့်</td></tr>
             </table>
-
-            <div class="recipe-box">
-                <h4>🧪 သဘာဝ NPK ဖော်စပ်နည်း (အနှစ်ချုပ်)</h4>
-                <ul>
-                    <li><strong>N:</strong> ပဲဖတ် (သို့) ကြက်ချေးဆွေး</li>
-                    <li><strong>P:</strong> ကြက်ဥခွံမှုန့်</li>
-                    <li><strong>K:</strong> ငှက်ပျောခွံ (သို့) ထင်းပြာရည်</li>
-                </ul>
-                <p>ရေ ၁၀၀ လီတာတွင် (၇) ရက်ခန့် အချဉ်ဖောက်၍ အသုံးပြုပါ။</p>
-            </div>
         </div>
     </div>
 
-    <div class="card" id="social" style="text-align: center;">
-        <h2>📲 ကျွန်ုပ်တို့နှင့် ချိတ်ဆက်ပါ</h2>
-        <div class="social-links">
-            <a href="#">Facebook</a>
-            <a href="#">TikTok</a>
-            <a href="#">YouTube</a>
+    <div class="card" id="recipe">
+        <h2>🧪 သဘာဝအားဆေး ဖော်စပ်နည်း</h2>
+        <div class="recipe-box">
+            <p><strong>လိုအပ်သော ပစ္စည်းများ:</strong></p>
+            <ul>
+                <li>ပဲဖတ် သို့မဟုတ် ကြက်ချေးဆွေး</li>
+                <li>ကြက်ဥခွံမှုန့် (ဖော့စဖရပ်အတွက်)</li>
+                <li>ထင်းပြာရည် (ပိုတက်စီယမ်အတွက်)</li>
+            </ul>
+            <p><strong>ပြုလုပ်ပုံ:</strong> အထက်ပါပစ္စည်းများကို ရေ ၁၀၀ လီတာဖြင့် (၇) ရက်ခန့် အချဉ်ဖောက်ပါ။ ပန်းပွင့်ချိန်တွင် အသုံးပြုရန် အကောင်းဆုံးဖြစ်သည်။</p>
+        </div>
+    </div>
+
+    <div class="card" id="contact" style="text-align: center;">
+        <h2>👨‍💻 Developer နှင့် ဆက်သွယ်ရန်</h2>
+        <p>နည်းပညာဆိုင်ရာ အကူအညီများအတွက် တိုက်ရိုက်ဆက်သွယ်နိုင်ပါသည်။</p>
+        <div class="contact-grid">
+            <a href="https://www.facebook.com/share/12CUyv4oA1U/?mibextid=wwXIfr" class="contact-btn bg-fb" target="_blank">Messenger</a>
+            <a href="tel:09261191220" class="contact-btn bg-call">ဖုန်းခေါ်ဆိုရန်</a>
         </div>
     </div>
 
 </div>
 
+<div id="chat-trigger" onclick="toggleChat()">💬 AI</div>
+<div id="chat-window">
+    <div id="chat-header" onclick="toggleChat()"><span>စိုက်ပျိုးရေးနည်းပညာနှင့် AI အကြံပေး</span> <span>✖</span></div>
+    <div id="chat-messages">
+        <p style="background:#f1f8e9; padding:8px; border-radius:8px;">မင်္ဂလာပါ! ကျွန်တော်က Gemini AI ပါ။ ပဲပုပ်စိုက်ပျိုးရေးအကြောင်း မေးမြန်းနိုင်ပါတယ်။</p>
+    </div>
+    <div id="chat-input-area">
+        <input type="text" id="userInput" placeholder="မေးခွန်းရိုက်ပါ..." style="margin-bottom:0;">
+        <button onclick="sendMsg()" style="background:var(--primary); color:white; border:none; padding:0 15px; border-radius:5px; margin-left:5px;">ပို့</button>
+    </div>
+</div>
+
 <footer>
-    <p>© 2026 Kachin Farming Web | Created with ❤️ for Farmers</p>
+    <p style="text-align:center; padding: 20px; color: #888; font-size: 0.8rem;">© 2026 Kachin Farmer Tech | Built for Myanmar Farmers</p>
 </footer>
 
 <script>
-function calculateDetailed() {
-    let acre = document.getElementById('acreInput').value;
-    if (acre > 0) {
-        document.getElementById('npkVal').innerText = (acre * 80).toFixed(0); 
-        document.getElementById('pestVal').innerText = (acre * 64).toFixed(0);
-        document.getElementById('waterVal').innerText = (acre * 200).toFixed(0);
-        document.getElementById('resultArea').style.display = 'block';
-    } else {
-        alert("ကျေးဇူးပြု၍ ဧက အရေအတွက် မှန်ကန်စွာ ရိုက်ထည့်ပါ။");
+    // Calculator Logic
+    function calculate() {
+        let acre = document.getElementById('acreInput').value;
+        if (acre > 0) {
+            document.getElementById('npkVal').innerText = (acre * 80).toFixed(0);
+            document.getElementById('pestVal').innerText = (acre * 64).toFixed(0);
+            document.getElementById('waterVal').innerText = (acre * 200).toFixed(0);
+            document.getElementById('resultArea').style.display = 'block';
+        }
     }
-}
+
+    // Chat Logic
+    function toggleChat() {
+        const win = document.getElementById('chat-window');
+        win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function sendMsg() {
+        const input = document.getElementById('userInput');
+        const msgArea = document.getElementById('chat-messages');
+        if (input.value.trim() === "") return;
+        
+        msgArea.innerHTML += `<p style="text-align:right;"><b>သင်:</b> ${input.value}</p>`;
+        const val = input.value;
+        input.value = "";
+        
+        // Demo Response (API Key မပါဘဲ အလုပ်လုပ်အောင် လုပ်ထားပေးခြင်း)
+        setTimeout(() => {
+            msgArea.innerHTML += `<p style="background:#f1f8e9; padding:8px; border-radius:8px;"><b>AI:</b> ${val} အတွက် ကျေးဇူးတင်ပါတယ်။ လက်ရှိတွင် Gemini API ချိတ်ဆက်မှုကို Developer မှ လုပ်ဆောင်နေဆဲဖြစ်ပါသည်။</p>`;
+            msgArea.scrollTop = msgArea.scrollHeight;
+        }, 800);
+    }
 </script>
 
 </body>
