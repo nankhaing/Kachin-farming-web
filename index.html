@@ -8,29 +8,35 @@
     <style>
         :root { --primary: #2e7d32; --secondary: #fbc02d; --light: #f4f9f4; --dark: #1b5e20; }
         body { font-family: 'Pyidaungsu', sans-serif; line-height: 1.6; margin: 0; background-color: var(--light); color: #333; }
-        header { background-color: var(--primary); color: white; padding: 2rem 1rem; text-align: center; }
-        nav { background: var(--dark); padding: 10px; position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; gap: 15px; }
-        nav a { color: white; text-decoration: none; font-size: 0.9rem; padding: 5px 10px; }
+        header { background-color: var(--primary); color: white; padding: 2.5rem 1rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        nav { background: var(--dark); padding: 12px; position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-size: 0.9rem; padding: 5px 12px; border-radius: 4px; transition: 0.3s; }
+        nav a:hover { background: var(--primary); }
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); }
         .badge { background: var(--secondary); color: black; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
-        .btn { display: inline-block; background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 10px; border: none; cursor: pointer; }
-        input { padding: 10px; width: 60%; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 10px; }
-        .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
-        .social-links a { color: var(--primary); font-weight: bold; text-decoration: none; }
+        .btn { display: inline-block; background: var(--primary); color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; margin-top: 10px; border: none; cursor: pointer; width: 100%; font-size: 1rem; font-weight: bold; }
+        input { padding: 12px; width: 100%; border-radius: 8px; border: 2px solid #ddd; margin-bottom: 15px; box-sizing: border-box; font-size: 1rem; }
+        input:focus { border-color: var(--primary); outline: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        td { padding: 10px; border-bottom: 1px solid #eee; }
+        .recipe-box { background: #f1f8e9; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 0.9rem; }
+        .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 20px; }
+        .social-links a { color: var(--primary); font-weight: bold; text-decoration: none; font-size: 1.1rem; }
+        footer { text-align: center; padding: 30px; color: #666; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Kachin Farmer Tech</h1>
-    <p>၁.၂၅ ဧက ပဲငပိ (ပဲပုပ်) စိုက်ပျိုးရေးနှင့် နည်းပညာ</p>
+    <p>ပဲငပိ (ပဲပုပ်) စိုက်ပျိုးရေးနှင့် နည်းပညာ</p>
 </header>
 
 <nav>
     <a href="#guides">စိုက်ပျိုးနည်း</a>
     <a href="#geography">ပထဝီဝင်</a>
-    <a href="#calculator">တွက်ချက်ရန်</a>
+    <a href="#calculator">တွက်ချက်စက်</a>
     <a href="#social">ချိတ်ဆက်ရန်</a>
 </nav>
 
@@ -39,54 +45,68 @@
     <div class="card" id="guides">
         <span class="badge">ယနေ့ - ဖေဖော်ဝါရီ ၁၆</span>
         <h2>🌱 လက်ရှိလုပ်ဆောင်ရန်</h2>
-        <p>ပဲပုပ်ပင်များ ပန်းပွင့်ချိန်ဖြစ်သောကြောင့် <strong>၁၀၀ လီတာ သဘာဝ NPK</strong> ကို အသုံးပြုရန် အကောင်းဆုံးအချိန်ဖြစ်သည်။ မြေစိုနေချိန်တွင်သာ ကျွေးပါ။</p>
+        <p>ပဲပုပ်ပင်များ ပန်းပွင့်ချိန်ရောက်ရှိနေပြီဖြစ်သည်။ ဤအချိန်တွင် <strong>နိုက်ထရိုဂျင်နှင့် ပိုတက်စီယမ်</strong> ကြွယ်ဝသော သဘာဝအားဆေးများကို ဂရုစိုက်ကျွေးပေးပါ။</p>
     </div>
 
     <div class="card" id="geography">
-        <h2>📍 ကချင်ပြည်နယ် ပထဝီဝင် အကြံပြုချက်</h2>
-        <p>ကချင်ပြည်နယ်၏ အေးမြသော ရာသီဥတုသည် ပဲပုပ်အတွက် ကောင်းသော်လည်း မိုးဦးစောတတ်သဖြင့် <strong>ရေနုတ်မြောင်း</strong> ကြိုတင်ပြင်ဆင်ပါ။ အက်ဆစ်ဓာတ်များသော မြေအတွက် <strong>ထင်းပြာ</strong> ကို အသုံးပြုပါ။</p>
+        <h2>📍 ကချင်ပြည်နယ် ပထဝီဝင်အကြံပြုချက်</h2>
+        <p>ကချင်ပြည်နယ်၏ မြေဆီလွှာသည် အက်ဆစ်ဓာတ်ကိန်း (pH) များတတ်သဖြင့် <strong>ထင်းပြာရည်</strong> ကို အချိုးကျရောစပ်အသုံးပြုခြင်းက ပဲပုပ်ပင်များအတွက် အထူးသင့်လျော်ပါသည်။</p>
     </div>
 
     <div class="card" id="calculator">
-        <h2>🧮 ဧကနှင့် ဆေးနှုန်းထား တွက်ချက်စက်</h2>
-        <p>သင့်စိုက်ခင်းဧကကို ရိုက်ထည့်ပါ (ဥပမာ - 1.25)</p>
-        <input type="number" id="acreInput" step="0.01" placeholder="ဧက အရေအတွက်...">
-        <button onclick="calculate()" class="btn">တွက်မည်</button>
+        <h2>📊 သဘာဝအားဆေးနှင့် မြေဧက တွက်ချက်စက်</h2>
+        <p>မိမိစိုက်ပျိုးမည့် <strong>ဧက</strong> ကို ရိုက်ထည့်ပါ -</p>
+        <input type="number" id="acreInput" step="0.01" placeholder="ဥပမာ - 1.25">
+        <button onclick="calculateDetailed()" class="btn">တွက်ချက်မည်</button>
         
-        <div id="result" style="display: none; margin-top: 15px; background: #e8f5e9; padding: 15px; border-radius: 8px;">
-            <p><strong>လိုအပ်မည့် ပမာဏများ:</strong></p>
-            <p>🔹 NPK မြေဩဇာ: <span id="npkResult">0</span> အိတ်ခန့်</p>
-            <p>🔹 သဘာဝပိုးသတ်ဆေး: <span id="pestResult">0</span> လီတာ</p>
+        <div id="resultArea" style="display: none;">
+            <h3>✅ လိုအပ်မည့် ပမာဏများ</h3>
+            <table>
+                <tr><td><strong>၁၀၀ လီတာ သဘာဝ NPK:</strong></td><td><span id="npkVal">0</span> လီတာ</td></tr>
+                <tr><td><strong>သဘာဝပိုးသတ်ဆေး:</strong></td><td><span id="pestVal">0</span> လီတာ</td></tr>
+                <tr><td><strong>လိုအပ်မည့် ရေပမာဏ:</strong></td><td><span id="waterVal">0</span> ဂါလံခန့်</td></tr>
+            </table>
+
+            <div class="recipe-box">
+                <h4>🧪 သဘာဝ NPK ဖော်စပ်နည်း (အနှစ်ချုပ်)</h4>
+                <ul>
+                    <li><strong>N:</strong> ပဲဖတ် (သို့) ကြက်ချေးဆွေး</li>
+                    <li><strong>P:</strong> ကြက်ဥခွံမှုန့်</li>
+                    <li><strong>K:</strong> ငှက်ပျောခွံ (သို့) ထင်းပြာရည်</li>
+                </ul>
+                <p>ရေ ၁၀၀ လီတာတွင် (၇) ရက်ခန့် အချဉ်ဖောက်၍ အသုံးပြုပါ။</p>
+            </div>
         </div>
     </div>
 
     <div class="card" id="social" style="text-align: center;">
-        <h2>📲 ချိတ်ဆက်ရန်</h2>
+        <h2>📲 ကျွန်ုပ်တို့နှင့် ချိတ်ဆက်ပါ</h2>
         <div class="social-links">
-            <a href="https://facebook.com">Facebook</a>
-            <a href="https://tiktok.com">TikTok</a>
-            <a href="https://youtube.com">YouTube</a>
+            <a href="#">Facebook</a>
+            <a href="#">TikTok</a>
+            <a href="#">YouTube</a>
         </div>
     </div>
 
 </div>
 
+<footer>
+    <p>© 2026 Kachin Farming Web | Created with ❤️ for Farmers</p>
+</footer>
+
 <script>
-function calculate() {
+function calculateDetailed() {
     let acre = document.getElementById('acreInput').value;
     if (acre > 0) {
-        document.getElementById('npkResult').innerText = (acre * 0.5).toFixed(2);
-        document.getElementById('pestResult').innerText = (acre * 20).toFixed(0);
-        document.getElementById('result').style.display = 'block';
+        document.getElementById('npkVal').innerText = (acre * 80).toFixed(0); 
+        document.getElementById('pestVal').innerText = (acre * 64).toFixed(0);
+        document.getElementById('waterVal').innerText = (acre * 200).toFixed(0);
+        document.getElementById('resultArea').style.display = 'block';
     } else {
-        alert("ဧက အရေအတွက် မှန်ကန်စွာ ရိုက်ထည့်ပါ။");
+        alert("ကျေးဇူးပြု၍ ဧက အရေအတွက် မှန်ကန်စွာ ရိုက်ထည့်ပါ။");
     }
 }
 </script>
-
-<footer>
-    <p style="text-align:center; padding: 20px; font-size: 0.8rem;">© 2026 Kachin Farming Web | Vercel & GitHub</p>
-</footer>
 
 </body>
 </html>
