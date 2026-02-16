@@ -15,20 +15,22 @@
         .card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-top: 5px solid var(--primary); }
         .btn { display: inline-block; background: var(--primary); color: white; padding: 12px; text-decoration: none; border-radius: 8px; border: none; cursor: pointer; width: 100%; font-size: 1rem; font-weight: bold; margin-top: 10px; }
         input { padding: 12px; width: 100%; border-radius: 8px; border: 2px solid #ddd; margin-bottom: 15px; box-sizing: border-box; }
-        
+
         /* Knowledge Section Style */
         details { margin-bottom: 12px; border: 1px solid #eee; padding: 12px; border-radius: 10px; background: #fff; transition: 0.3s; }
         details[open] { border-color: var(--primary); background: #f1f8e9; }
         summary { font-weight: bold; cursor: pointer; outline: none; color: var(--dark); display: flex; justify-content: space-between; align-items: center; }
         .info-content { font-size: 0.9rem; margin-top: 10px; color: #444; border-top: 1px solid #ddd; padding-top: 10px; }
-        .info-content b { color: var(--dark); }
 
-        /* Chat UI */
-        #chat-window { position: fixed; bottom: 80px; right: 20px; width: 300px; z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 15px; overflow: hidden; display: none; flex-direction: column; background: white; border: 1px solid #ddd; }
-        #chat-header { background: var(--primary); color: white; padding: 12px; font-weight: bold; display: flex; justify-content: space-between; cursor: pointer; }
-        #chat-messages { height: 300px; overflow-y: auto; padding: 15px; font-size: 0.85rem; }
-        #chat-input-area { display: flex; padding: 10px; border-top: 1px solid #eee; }
-        #chat-trigger { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; padding: 12px 20px; border-radius: 30px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 999; font-weight: bold; }
+        /* AI Floating Button */
+        .ai-chat-button { position: fixed; bottom: 20px; right: 20px; background-color: var(--primary); color: white; border: none; border-radius: 50px; padding: 15px 25px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .ai-chat-button:hover { background-color: var(--dark); transform: scale(1.05); }
+
+        /* AI Chat Window */
+        #ai-chat-window { display: none; position: fixed; bottom: 85px; right: 20px; width: 350px; height: 500px; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); z-index: 1000; overflow: hidden; border: 1px solid #ddd; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @media screen and (max-width: 480px) { #ai-chat-window { width: 90%; right: 5%; height: 70vh; } }
         
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .contact-btn { padding: 10px; border-radius: 8px; text-decoration: none; color: white; text-align: center; font-weight: bold; font-size: 0.9rem; }
@@ -49,14 +51,12 @@
 </nav>
 
 <div class="container">
-    
     <div class="card" id="calculator">
         <h2>📊 မြေဧကနှင့် ဆေးနှုန်းထားတွက်ချက်စက်</h2>
-        <p style="font-size: 0.9rem; color: #666;">စိုက်ပျိုးမည့် ဧကကို ရိုက်ထည့်ပြီး လိုအပ်မည့်ဆေးပမာဏကို တွက်ချက်ပါ။</p>
         <input type="number" id="acreInput" step="0.01" placeholder="ဧက အရေအတွက် (ဥပမာ - 1.25)">
         <button onclick="calculate()" class="btn">တွက်ချက်မည်</button>
         <div id="resultArea" style="display: none; margin-top: 15px; background: #e8f5e9; padding: 15px; border-radius: 10px;">
-            <p>✅ <b>သဘာဝ NPK (၁၀၀ လီတာစပ်နည်း):</b> <span id="npkVal">0</span> လီတာ</p>
+            <p>✅ <b>သဘာဝ NPK:</b> <span id="npkVal">0</span> လီတာ</p>
             <p>✅ <b>သဘာဝပိုးသတ်ဆေး:</b> <span id="pestVal">0</span> လီတာ</p>
             <p>✅ <b>လိုအပ်မည့် ရေပမာဏ:</b> <span id="waterVal">0</span> ဂါလံခန့်</p>
         </div>
@@ -64,196 +64,28 @@
 
     <div class="card" id="knowledge">
         <h2 style="color: var(--primary); text-align: center;">📚 စိုက်ပျိုးရေး စွယ်စုံကျမ်း</h2>
-
         <details>
             <summary>🧪 သဘာဝ ပိုးသတ်ဆေးမျိုးစုံ ပြုလုပ်နည်း</summary>
-            <div class="info-content">
-                <b>၁။ တမာဆေးရည်:</b> တမာစေ့ သို့မဟုတ် တမာရွက် ၁ ပိဿာကို ထောင်း၍ ရေ ၁၀ လီတာဖြင့် တစ်ညစိမ်ပါ။ စစ်ထုတ်ပြီး ပက်ဖျန်းပါ။ ပိုးမွှားပေါင်းစုံအတွက် ထိရောက်သည်။<br><br>
-                <b>၂။ ငရုတ်သီးဆေးရည်:</b> ငရုတ်သီးစိမ်းတောက်တောက်များကို ကျိတ်၍ ရေနှင့်ရောပါ။ ဝါးပိုးနှင့် ရွက်လိပ်ပိုးများအတွက် အထူးကောင်းမွန်သည်။
-            </div>
+            <div class="info-content"><b>၁။ တမာဆေးရည်:</b> တမာစေ့ ၁ ပိဿာကို ထောင်း၍ ရေ ၁၀ လီတာဖြင့် တစ်ညစိမ်ပါ။ <br><b>၂။ ငရုတ်သီးဆေးရည်:</b> ငရုတ်သီးစိမ်းတောက်တောက်များကို ကျိတ်၍ ရေနှင့်ရောပါ။</div>
         </details>
-
         <details>
             <summary>🌱 သဘာဝ မြေဩဇာမျိုးစုံ ပြုလုပ်နည်း</summary>
-            <div class="info-content">
-                <b>၁။ အီးအမ် (EM) ဘိုကာရှီ:</b> နွားချေး၊ ဖွဲနု၊ သကြားရည်နှင့် EM တို့ကို အချိုးကျရောစပ်၍ အချဉ်ဖောက်ပါ။ မြေဆီလွှာကို အားကောင်းစေသည်။<br><br>
-                <b>၂။ ငါးအမိုင်နိုအက်ဆစ်:</b> ငါးဘေးထွက်ပစ္စည်းနှင့် တင်လဲရည်ကို ရော၍ (၃) လထားပါ။ အပင်ကြီးထွားနှုန်းကို မြန်စေသည်။
-            </div>
+            <div class="info-content"><b>၁။ အီးအမ် (EM) ဘိုကာရှီ:</b> နွားချေး၊ ဖွဲနု၊ သကြားရည်နှင့် EM ရောစပ်ပါ။ <br><b>၂။ ငါးအမိုင်နိုအက်ဆစ်:</b> ငါးဘေးထွက်ပစ္စည်းနှင့် တင်လဲရည်ကို ရော၍ (၃) လထားပါ။</div>
         </details>
-
         <details>
             <summary>☁️ ရာသီဥတုနှင့် မြေမျက်နှာသွင်ပြင်</summary>
-            <div class="info-content">
-                ကချင်ပြည်နယ်သည် အေးမြစိုစွတ်သော ရာသီဥတုရှိသဖြင့် ပဲပုပ်နှင့် ပြောင်းအတွက် သင့်တော်သည်။ တောင်စောင်းစိုက်ပျိုးရာတွင် မြေဆီလွှာတိုက်စားမှု ကာကွယ်ရန် လှေကားထစ်စိုက်ပျိုးခြင်းကို ပြုလုပ်သင့်သည်။
-            </div>
-        </details>
-
-        <details>
-            <summary>📍 နေရာဒေသနှင့် မြေဆီလွှာ</summary>
-            <div class="info-content">
-                <b>နုန်းမြေ:</b> မြစ်ဝှမ်းဒေသများတွင်ရှိပြီး သီးနှံစုံစိုက်နိုင်သည်။<br>
-                <b>မြေနီ/မြေဝါ:</b> ကုန်းမြင့်ပိုင်းတွင်ရှိပြီး ရေစီးရေလာကောင်းသော်လည်း မြေဩဇာ ပိုကျွေးရန်လိုအပ်သည်။<br>
-                <b>မြေစေး:</b> ရေထိန်းအားကောင်းသဖြင့် စပါးစိုက်ပျိုးရန် သင့်တော်သည်။
-            </div>
-        </details>
-
-        <details>
-            <summary>🌾 မြေဆီလွှာနှင့် စိုက်ပျိုးသီးနှံ</summary>
-            <div class="info-content">
-                မြေချဉ်လျှင် ထုံး သို့မဟုတ် ထင်းပြာ ထည့်ပေးပါ။ ပဲမျိုးစုံသည် မြေဆီလွှာကို နိုက်ထရိုဂျင် ပြန်ဖြည့်ပေးသဖြင့် အခြားသီးနှံများနှင့် အလှည့်ကျစိုက်ပျိုးခြင်း (Crop Rotation) ပြုလုပ်ရန် အရေးကြီးသည်။
-            </div>
-        </details>
-
-        <details>
-            <summary>📅 စိုက်ပျိုးသီးနှံနှင့် သက်တမ်း</summary>
-            <div class="info-content">
-                <b>ပဲပုပ်:</b> (၉၀ - ၁၁၀) ရက်။<br>
-                <b>မိုးစပါး:</b> (၁၂၀ - ၁၅၀) ရက်။<br>
-                <b>ပြောင်း:</b> (၁၀၀ - ၁၂၀) ရက်။<br>
-                သက်တမ်းတိုမျိုးများကို စိုက်ပျိုးခြင်းဖြင့် ရာသီဥတုဒဏ်ကို လျှော့ချနိုင်သည်။
-            </div>
-        </details>
-
-        <details>
-            <summary>💊 သက်တမ်းနှင့် မြေဩဇာကျွေးခြင်း</summary>
-            <div class="info-content">
-                <b>အပင်ငယ်စဉ်:</b> ပင်စည်နှင့် အရွက်သန်မာရန် နိုက်ထရိုဂျင် (N) ကို အဓိကကျွေးပါ။<br>
-                <b>ပန်းပွင့်/အသီးတင်ချိန်:</b> အထွက်နှုန်းကောင်းရန် ဖော့စဖရပ် (P) နှင့် ပိုတက်စီယမ် (K) ကို အဓိကထား ကျွေးရပါမည်။
-            </div>
-        </details>
-
-        <details>
-            <summary>☀️ ရေနှင့် နေရောင်ခြည်</summary>
-            <div class="info-content">
-                သီးနှံအများစုသည် တစ်နေ့လျှင် နေရောင်ခြည် (၆) နာရီထက်မနည်း ရရှိရန်လိုသည်။ ရေလောင်းရာတွင် အမြစ်ခြေကိုသာ လောင်းပါ၊ အရွက်ကိုလောင်းခြင်းက မှိုရောဂါ ဖြစ်စေနိုင်ပါသည်။
-            </div>
+            <div class="info-content">ကချင်ပြည်နယ်သည် အေးမြစိုစွတ်သော ရာသီဥတုရှိသဖြင့် ပဲပုပ်နှင့် ပြောင်းအတွက် သင့်တော်သည်။</div>
         </details>
     </div>
 
     <div class="card" id="contact" style="text-align: center;">
         <h2>👨‍💻 Developer နှင့် ဆက်သွယ်ရန်</h2>
         <div class="contact-grid">
-            <a href="https://www.facebook.com/share/12CUyv4oA1U/?mibextid=wwXIfr" class="contact-btn" style="background:#1877F2;" target="_blank">Messenger</a>
+            <a href="https://www.facebook.com/share/12CUyv4oA1U/" class="contact-btn" style="background:#1877F2;" target="_blank">Messenger</a>
             <a href="tel:09261191220" class="contact-btn" style="background:var(--accent);">ဖုန်းခေါ်ဆိုရန်</a>
         </div>
     </div>
-
 </div>
-
-<div id="chat-trigger" onclick="toggleChat()">💬 AI အားမေးမြန်းရန်</div>
-<div id="chat-window">
-    <div id="chat-header" onclick="toggleChat()"><span>စိုက်ပျိုးရေး AI</span> <span>✖</span></div>
-    <div id="chat-messages">
-        <p style="background:#f1f8e9; padding:8px; border-radius:8px;">မင်္ဂလာပါ! ကျွန်တော်က စိုက်ပျိုးရေး AI ဖြစ်ပါတယ်။ ဘာများကူညီပေးရမလဲခင်ဗျာ?</p>
-    </div>
-    <div id="chat-input-area">
-        <input type="text" id="userInput" placeholder="မေးခွန်းရိုက်ပါ..." onkeypress="if(event.key==='Enter') sendMsg()">
-        <button onclick="sendMsg()" style="background:var(--primary); color:white; border:none; padding:0 10px; border-radius:5px; margin-left:5px;">ပို့</button>
-    </div>
-</div>
-
-<footer>
-    <p>© 2026 Kachin Farmer Tech | Myanmar Agricultural AI</p>
-</footer>
-
-<script>
-    // Calculator Logic
-    function calculate() {
-        let acre = document.getElementById('acreInput').value;
-        if (acre > 0) {
-            document.getElementById('npkVal').innerText = (acre * 80).toFixed(0);
-            document.getElementById('pestVal').innerText = (acre * 64).toFixed(0);
-            document.getElementById('waterVal').innerText = (acre * 200).toFixed(0);
-            document.getElementById('resultArea').style.display = 'block';
-        } else {
-            alert("ဧက အရေအတွက် မှန်ကန်စွာ ရိုက်ထည့်ပါ");
-        }
-    }
-
-    // Chat Box Logic
-    function toggleChat() {
-        const win = document.getElementById('chat-window');
-        win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function sendMsg() {
-        const input = document.getElementById('userInput');
-        const msgArea = document.getElementById('chat-messages');
-        if (input.value.trim() === "") return;
-        
-        msgArea.innerHTML += `<p style="text-align:right;"><b>သင်:</b> ${input.value}</p>`;
-        const userText = input.value;
-        input.value = "";
-        
-        msgArea.scrollTop = msgArea.scrollHeight;
-
-        // Simulate AI Response (Until API is connected)
-        setTimeout(() => {
-            msgArea.innerHTML += `<p style="background:#f1f8e9; padding:8px; border-radius:8px;"><b>AI:</b> မေးမြန်းမှုကို ကျေးဇူးတင်ပါသည်။ "${userText}" နှင့်ပတ်သက်၍ Gemini AI မှ ဖြေကြားပေးနိုင်ရန် Developer မှ API ချိတ်ဆက်မှုကို လုပ်ဆောင်နေဆဲ ဖြစ်ပါသည်။</p>`;
-            msgArea.scrollTop = msgArea.scrollHeight;
-        }, 800);
-    }
-</script>
-
-<style>
-  /* Button လှလှလေးရဲ့ ဒီဇိုင်း */
-  .ai-chat-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #28a745; /* အစိမ်းရောင် (စိုက်ပျိုးရေးနှင့်လိုက်ဖက်ရန်) */
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 15px 25px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: 0.3s;
-  }
-
-  .ai-chat-button:hover {
-    background-color: #218838;
-    transform: scale(1.05);
-  }
-
-  /* Chat window သေးသေးလေး */
-  #ai-chat-window {
-    display: none;
-    position: fixed;
-    bottom: 85px;
-    right: 20px;
-    width: 350px;
-    height: 500px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    z-index: 1000;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    animation: fadeIn 0.3s ease-in-out;
-  }
-
-  /* ပေါ်လာတဲ့အခါ animation လေးထည့်ထားပါတယ် */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ဖုန်းနဲ့ကြည့်ရင် window အရွယ်အစားကို အနည်းငယ်ချိန်ညှိပေးထားပါတယ် */
-  @media screen and (max-width: 480px) {
-    #ai-chat-window {
-      width: 90%;
-      right: 5%;
-      height: 70vh;
-    }
-  }
-</style>
 
 <button class="ai-chat-button" onclick="toggleAIChat()">
   <span>💬 AI နှင့် တိုင်ပင်ပါ</span>
@@ -261,30 +93,38 @@
 
 <div id="ai-chat-window">
   <iframe
-    id="poe-iframe"
     src="https://poe.com/invite/61fc0ab352bf436cabe6a31918e259df" 
     style="width: 100%; height: 100%; border: none;">
   </iframe>
 </div>
 
-<script>
-  function toggleAIChat() {
-    var chatWin = document.getElementById("ai-chat-window");
-    if (chatWin.style.display === "none" || chatWin.style.display === "") {
-      chatWin.style.display = "block";
-    } else {
-      chatWin.style.display = "none";
-    }
-  }
+<footer>
+    <p>© 2026 Kachin Farmer Tech | Myanmar Agricultural AI</p>
+</footer>
 
-  // Window အပြင်ဘက်ကိုနှိပ်ရင် ပိတ်သွားအောင် လုပ်ထားချင်ပါက (Optional)
-  window.onclick = function(event) {
-    var chatWin = document.getElementById("ai-chat-window");
-    var chatBtn = document.querySelector(".ai-chat-button");
-    if (event.target !== chatBtn && !chatBtn.contains(event.target) && event.target !== chatWin && !chatWin.contains(event.target)) {
-        chatWin.style.display = "none";
+<script>
+    function calculate() {
+        let acre = document.getElementById('acreInput').value;
+        if (acre > 0) {
+            document.getElementById('npkVal').innerText = (acre * 80).toFixed(0);
+            document.getElementById('pestVal').innerText = (acre * 64).toFixed(0);
+            document.getElementById('waterVal').innerText = (acre * 200).toFixed(0);
+            document.getElementById('resultArea').style.display = 'block';
+        }
     }
-  }
+
+    function toggleAIChat() {
+        var chatWin = document.getElementById("ai-chat-window");
+        chatWin.style.display = (chatWin.style.display === "none" || chatWin.style.display === "") ? "block" : "none";
+    }
+
+    window.onclick = function(event) {
+        var chatWin = document.getElementById("ai-chat-window");
+        var chatBtn = document.querySelector(".ai-chat-button");
+        if (event.target !== chatBtn && !chatBtn.contains(event.target) && event.target !== chatWin && !chatWin.contains(event.target)) {
+            chatWin.style.display = "none";
+        }
+    }
 </script>
 
 </body>
