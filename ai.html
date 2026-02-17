@@ -3,33 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Weather - Kachin Farming</title>
+    <title>AI Smart Expert - Kachin Farming</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-900 font-sans h-screen flex flex-col">
+<body class="bg-slate-50 font-sans pb-10" onload="displayHistory()">
 
-    <header class="p-4 flex items-center justify-between text-white">
-        <a href="index.html" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center">
-            <i class="fa-solid fa-arrow-left"></i>
-        </a>
-        <h1 class="font-bold">Live မိုးလေဝသ</h1>
-        <div class="w-10"></div>
+    <header class="bg-green-700 text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="flex items-center justify-between max-w-md mx-auto">
+            <a href="index.html"><i class="fa-solid fa-arrow-left text-xl"></i></a>
+            <h1 class="text-lg font-bold flex-1 text-center">Expert AI အကြံပေး</h1>
+        </div>
     </header>
 
-    <div class="flex-1 w-full relative">
-        <iframe 
-            width="100%" 
-            height="100%" 
-            src="https://embed.windy.com/embed2.html?lat=25.385&lon=97.400&detailLat=25.385&detailLon=97.400&width=650&height=450&zoom=6&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" 
-            frameborder="0">
-        </iframe>
-    </div>
+    <main class="max-w-md mx-auto p-4 space-y-6">
 
-    <div class="p-4 bg-slate-800 text-white">
-        <p class="text-[10px] text-slate-400 uppercase font-black mb-1">Expert Tip</p>
-        <p class="text-xs">မိုးပြင်းထန်ပါက မြေဩဇာကျွေးခြင်းကို ခေတ္တရပ်နားပါ။ သဲပုတ်မြေတွင် အာဟာရများ ပိုမိုစိမ့်ထွက်နိုင်သောကြောင့်ဖြစ်သည်။</p>
-    </div>
+        <section class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">အပင်သက်တမ်း (ရက်)</label>
+                    <input id="age" type="number" value="46" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:ring-2 focus:ring-green-500 outline-none font-bold">
+                </div>
 
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">မျိုးစေ့အမျိုးအစား</label>
+                    <select id="maturity" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl outline-none font-bold">
+                        <option value="early">သက်လျင်မျိုး (၈၀-၉၀ ရက်)</option>
+                        <option value="medium" selected>သက်လတ်မျိုး (၁၀၀-၁၁၀ ရက်)</option>
+                        <option value="late">သက်ကြီးမျိုး (၁၂၀ ရက်+)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">အပင်အမြင့် (လက်မ)</label>
+                    <input id="height" type="number" placeholder="ဥပမာ - ၈" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:ring-2 focus:ring-green-500 outline-none font-bold">
+                </div>
+
+                <button onclick="runExpertAI()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-2xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> အကြံပြုချက်တောင်းမည်
+                </button>
+            </div>
+        </section>
+
+        <div id="aiResponse" class="hidden animate-fade-in">
+            <div class="bg-white p-6 rounded-[2.5rem] shadow-md border-2 border-green-500 relative">
+                <div class="absolute -top-3 left-8 bg-green-500 text-white text-[10px] px-4 py-1 rounded-full font-black uppercase shadow-sm">
+                    Expert Advice
+                </div>
+                <div id="adviceContent" class="text-slate-700 leading-relaxed text-sm pt-2"></div>
+            </div>
+        </div>
+
+        <section class="bg-slate-100 p-6 rounded-[2.5rem]">
+            <h3 class="text-slate-500 text-[10px] font-black mb-4 uppercase tracking-widest flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left"></i> ယခင်မှတ်တမ်းများ
+            </h3>
+            <div id="historyBox" class="space-y-3">
+                <p class="text-xs text-slate-400 italic text-center">မှတ်တမ်းမရှိသေးပါ။</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // 1. Expert Logic Config (Easily Updateable)
+        const ExpertRules = {
+            soybean: {
+                minStuntedHeight: 12,
+                bloomDays: { early: 35, medium: 45, late: 55 },
+                advice: {
+                    stunted: "⚠️ <b>အပင်ကြီးထွားမှု နှေးနေသည်-</b> NPK 21:21:21 နှင့် အမိုင်နိုအားဆေးကို ၅ ရက်ခြား တစ်ကြိမ် ဖျန်းပေးပါ။",
+                    bloom: "🌸 <b>အပွင့်ပွင့်ချိန်-</b> NPK 0:42:56 သို့ ပြောင်းသုံးပြီး ရေသွင်းနှုန်း မှန်ပါစေ။",
+                    normal: "🌱 <b>ကြီးထွားဆဲ-</b> အပင်သန်မာစေရန် NPK 21:21:21 ကို ဆက်သုံးပါ။"
+                }
+            }
+        };
+
+        function runExpertAI() {
+            const age = parseInt(document.getElementById('age').value);
+            const height = parseInt(document.getElementById('height').value);
+            const maturity = document.getElementById('maturity').value;
+            const resDiv = document.getElementById('aiResponse');
+            const content = document.getElementById('adviceContent');
+
+            let finalAdvice = "";
+
+            // Logic Decision Tree
+            if (height < ExpertRules.soybean.minStuntedHeight && age > 40) {
+                finalAdvice = ExpertRules.soybean.advice.stunted;
+            } else if (age >= ExpertRules.soybean.bloomDays[maturity]) {
+                finalAdvice = ExpertRules.soybean.advice.bloom;
+            } else {
+                finalAdvice = ExpertRules.soybean.advice.normal;
+            }
+
+            content.innerHTML = finalAdvice;
+            resDiv.classList.remove('hidden');
+
+            saveToHistory(age, height, finalAdvice);
+        }
+
+        // 2. History Logic (Self-Training Memory)
+        function saveToHistory(age, height, advice) {
+            let history = JSON.parse(localStorage.getItem('farmHistory')) || [];
+            const newEntry = {
+                date: new Date().toLocaleDateString(),
+                age: age,
+                height: height,
+                shortAdvice: advice.substring(0, 50) + "..."
+            };
+            history.unshift(newEntry);
+            localStorage.setItem('farmHistory', JSON.stringify(history.slice(0, 5)));
+            displayHistory();
+        }
+
+        function displayHistory() {
+            const box = document.getElementById('historyBox');
+            let history = JSON.parse(localStorage.getItem('farmHistory')) || [];
+            
+            if (history.length > 0) {
+                box.innerHTML = history.map(item => `
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-[9px] font-bold text-slate-400 uppercase">${item.date}</span>
+                            <span class="text-[9px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">ပဲပုပ်</span>
+                        </div>
+                        <p class="text-[11px] text-slate-600 font-medium">
+                            သက်တမ်း ${item.age} ရက် | အမြင့် ${item.height} လက်မ
+                        </p>
+                    </div>
+                `).join('');
+            }
+        }
+    </script>
+
+    <style>
+        .animate-fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </body>
 </html>
