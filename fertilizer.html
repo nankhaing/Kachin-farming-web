@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>မြေဩဇာတွက်ချက်စက် - Kachin Farming</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 font-sans pb-10">
+
+    <header class="bg-green-700 text-white p-4 shadow-lg sticky top-0 z-10">
+        <div class="flex items-center justify-between max-w-md mx-auto">
+            <a href="index.html"><i class="fa-solid fa-arrow-left text-xl"></i></a>
+            <h1 class="text-lg font-bold text-center flex-1">မြေဩဇာ ရောစပ်နည်း</h1>
+        </div>
+    </header>
+
+    <main class="max-w-md mx-auto p-4 space-y-6">
+
+        <section class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+            <h2 class="text-green-700 font-bold mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-calculator"></i> Calculator
+            </h2>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">လိုချင်သော NPK အချိုး</label>
+                    <select id="ratio" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:ring-2 focus:ring-green-500 outline-none">
+                        <option value="21-21-21">21:21:21 (အပင်ကြီးထွားရန်)</option>
+                        <option value="15-15-15">15:15:15 (အာဟာရမျှတစေရန်)</option>
+                        <option value="0-42-56">0:42:56 (အပွင့်/အသီးအတွက်)</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">ပမာဏ</label>
+                        <input id="amount" type="number" value="10" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:ring-2 focus:ring-green-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">ယူနစ်</label>
+                        <select id="unit" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl focus:ring-2 focus:ring-green-500 outline-none">
+                            <option value="peiktha">ပိဿာ/ကီလို</option>
+                            <option value="cup">နို့ဆီဘူး/ဆ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="calculate()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-2xl shadow-lg transition-all active:scale-95">
+                    တွက်ချက်မည်
+                </button>
+            </div>
+        </section>
+
+        <div id="result" class="hidden animate-fade-in space-y-4">
+            <section class="bg-white p-6 rounded-3xl shadow-sm border-2 border-green-100">
+                <h3 class="font-bold text-slate-700 mb-4 border-b pb-2">ရောစပ်ရမည့် အချိုးအစား</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-600">ယူရီးယား (Urea)</span>
+                        <span id="urea-res" class="font-black text-green-700"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-600">တီစူပါ (TSP)</span>
+                        <span id="tsp-res" class="font-black text-green-700"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-600">ပိုတက်ရှ် (MOP)</span>
+                        <span id="mop-res" class="font-black text-green-700"></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-2xl">
+                <p class="text-xs text-amber-800 leading-relaxed">
+                    <strong>မှတ်ချက်:</strong> သဲပုတ်မြေဖြစ်ပါက မြေဆွေး (Compost) နှင့် ရောကျွေးပါ။ အရွက်ဖျန်းအားဆေးကိုပါ တွဲဖက်သုံးစွဲခြင်းက ပိုမိုထိရောက်ပါသည်။
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function calculate() {
+            const ratio = document.getElementById('ratio').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const unit = document.getElementById('unit').value;
+            
+            let n, p, k;
+            [n, p, k] = ratio.split('-').map(Number);
+
+            // Calculation Logic
+            let urea = (n / 46) * amount;
+            let tsp = (p / 46) * amount;
+            let mop = (k / 60) * amount;
+
+            if (unit === 'cup') {
+                document.getElementById('urea-res').innerText = mapLabel(urea) + " (ဘူး)";
+                document.getElementById('tsp-res').innerText = mapLabel(tsp) + " (ဘူး)";
+                document.getElementById('mop-res').innerText = mapLabel(mop) + " (ဘူး)";
+            } else {
+                document.getElementById('urea-res').innerText = urea.toFixed(1) + " (ပိဿာ)";
+                document.getElementById('tsp-res').innerText = tsp.toFixed(1) + " (ပိဿာ)";
+                document.getElementById('mop-res').innerText = mop.toFixed(1) + " (ပိဿာ)";
+            }
+
+            document.getElementById('result').classList.remove('hidden');
+        }
+
+        function mapLabel(val) {
+            if (val === 0) return "မလိုပါ";
+            if (val > 0.8 && val < 1.2) return "၁ ဘူး";
+            if (val >= 0.4 && val <= 0.6) return "ဘူးဝက်";
+            if (val > 0.6 && val <= 0.8) return "တစ်ဘူးမပြည့်တပြည့်";
+            return val.toFixed(1);
+        }
+    </script>
+</body>
+</html>
