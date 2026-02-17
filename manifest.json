@@ -1,0 +1,15 @@
+{
+  "name": "Kachin Farming App",
+  "short_name": "K-Farm",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#15803d",
+  "theme_color": "#15803d",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2329/2329140.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
