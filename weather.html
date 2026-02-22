@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Weather - Kachin Farming</title>
+    <title>K-Farming - Weather</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-900 font-sans h-screen flex flex-col">
+<body class="bg-slate-900 h-screen flex flex-col pb-20">
 
-    <header class="p-4 flex items-center justify-between text-white">
-        <a href="index.html" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center">
+    <header class="p-5 flex items-center gap-4 text-white">
+        <a href="index.html" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <h1 class="font-bold">Live မိုးလေဝသ</h1>
-        <div class="w-10"></div>
+        <h1 class="text-xl font-black italic">Live မိုးလေဝသ</h1>
     </header>
 
-    <div class="flex-1 w-full relative">
+    <div class="flex-1 overflow-hidden rounded-t-[3rem] bg-white">
         <iframe 
             width="100%" 
             height="100%" 
-            src="https://embed.windy.com/embed2.html?lat=25.385&lon=97.400&detailLat=25.385&detailLon=97.400&width=650&height=450&zoom=6&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" 
+            src="https://embed.windy.com/embed2.html?lat=25.385&lon=97.400&zoom=6&level=surface&overlay=rain&product=ecmwf" 
             frameborder="0">
         </iframe>
     </div>
 
-    <div class="p-4 bg-slate-800 text-white">
-        <p class="text-[10px] text-slate-400 uppercase font-black mb-1">Expert Tip</p>
-        <p class="text-xs">မိုးပြင်းထန်ပါက မြေဩဇာကျွေးခြင်းကို ခေတ္တရပ်နားပါ။ သဲပုတ်မြေတွင် အာဟာရများ ပိုမိုစိမ့်ထွက်နိုင်သောကြောင့်ဖြစ်သည်။</p>
+    <div class="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-md border-t border-white/10 p-4 flex justify-around z-50">
+        <a href="index.html" class="text-slate-500"><i class="fa-solid fa-house text-xl"></i></a>
+        <a href="crops.html" class="text-slate-500"><i class="fa-solid fa-seedling text-xl"></i></a>
+        <a href="fertilizer.html" class="text-slate-500"><i class="fa-solid fa-calculator text-xl"></i></a>
+        <a href="weather.html" class="text-green-500"><i class="fa-solid fa-map-location-dot text-xl"></i></a>
     </div>
 
 </body>
