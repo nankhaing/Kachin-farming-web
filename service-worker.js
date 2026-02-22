@@ -1,11 +1,12 @@
 const CACHE_NAME = 'k-farm-v2'; // version ပြောင်းလိုက်တာပါ
 const ASSETS_TO_CACHE = [
-  'index.html',
-  'fertilizer.html',
-  'ai.html',
-  'weather.html',
-  'crops.html',
-  'manifest.json'
+  '/',
+  '/index.html',
+  '/fertilizer.html',
+  '/weather.html',
+  '/crops.html',
+  '/ai.html', // <--- Make sure this is added!
+  '/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
