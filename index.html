@@ -3,94 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kachin Farming Dashboard</title>
+    <title>Kachin Farming - Home</title>
     <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <meta name="theme-color" content="#15803d">
 </head>
-<body class="bg-slate-50 font-sans pb-24">
-
-    <nav class="bg-green-700 text-white p-5 shadow-md rounded-b-[2rem]">
-        <div class="max-w-md mx-auto flex justify-between items-center">
+<body class="bg-slate-50 pb-24">
+    <nav class="bg-green-700 text-white p-5 rounded-b-[2rem] shadow-lg">
+        <div class="flex justify-between items-center">
             <div>
-                <p class="text-xs opacity-80 uppercase font-bold tracking-tighter">Welcome Farmer</p>
-                <h1 class="text-xl font-black italic">K-Farming App</h1>
+                <p class="text-[10px] uppercase font-bold opacity-70">Kachin State</p>
+                <h1 class="text-xl font-black">K-Farming App</h1>
             </div>
-            <div class="bg-green-600 p-2 rounded-full border border-green-500 shadow-inner">
-                <i class="fa-solid fa-seedling text-xl"></i>
-            </div>
+            <a href="https://poe.com/Kachin_Agri_Bot" target="_blank" class="bg-white/20 p-2 rounded-full border border-white/30">
+                <i class="fa-solid fa-robot text-xl text-white"></i>
+            </a>
         </div>
     </nav>
 
-    <main class="max-w-md mx-auto p-4 space-y-6">
-
-        <section class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-4 opacity-10">
-                <i class="fa-solid fa-leaf text-6xl text-green-600"></i>
+    <main class="p-4 space-y-4">
+        <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100">
+            <h2 class="text-slate-400 text-[10px] font-black uppercase tracking-widest">Active Crop</h2>
+            <div class="flex items-end gap-2 mt-1">
+                <span class="text-4xl font-black text-slate-800">Soybean</span>
+                <span class="text-green-600 font-bold mb-1">Active</span>
             </div>
-            <h2 class="text-slate-400 text-[10px] font-black uppercase tracking-widest">Active Crop Status</h2>
-            <div class="flex items-end gap-2 mt-2">
-                <span class="text-5xl font-black text-slate-800">၄၆</span>
-                <span class="text-slate-500 font-bold mb-1">ရက်သား (ပဲပုပ်)</span>
-            </div>
-            
-            <div class="mt-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-2xl">
-                <p class="text-xs text-red-700 font-bold leading-relaxed">
-                    ⚠️ သတိပေးချက်: အပင်ပုနေသည် (၈ လက်မ)။ အာဟာရနှင့် မြေဩဇာ လိုအပ်ပါသည်။
-                </p>
-            </div>
-            
-            <a href="ai.html" class="block mt-4 text-center bg-green-100 text-green-700 py-3 rounded-2xl text-sm font-black">
-    အသေးစိတ်ကြည့်မည် →
-</a>
-
-        </section>
-
-        <section class="grid grid-cols-2 gap-4">
-            <div class="bg-blue-600 text-white p-5 rounded-[2.5rem] shadow-lg shadow-blue-100">
-                <i class="fa-solid fa-cloud-sun text-2xl mb-2"></i>
-                <p class="text-[10px] opacity-80 font-bold uppercase">Weather</p>
-                <p class="font-black text-lg">နေသာမည်</p>
-            </div>
-            <a href="weather.html" class="bg-white p-5 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col justify-center items-center text-slate-600">
-                <i class="fa-solid fa-wind text-2xl text-blue-400 mb-1"></i>
-                <span class="text-[10px] font-black uppercase">Live Map</span>
-            </a>
-        </section>
+            <a href="crops.html" class="block mt-4 text-center bg-slate-100 text-slate-700 py-3 rounded-2xl text-xs font-black">CHANGE CROP</a>
+        </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <a href="crops.html" class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center gap-2">
-                <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-3xl flex items-center justify-center">
-                    <i class="fa-solid fa-wheat-awn text-xl"></i>
-                </div>
-                <span class="text-xs font-black text-slate-700 uppercase">သီးနှံများ</span>
+            <a href="fertilizer.html" class="bg-white p-5 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center gap-2">
+                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-flask"></i></div>
+                <span class="text-[10px] font-black uppercase">Fertilizer</span>
             </a>
-            <a href="fertilizer.html" class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center gap-2">
-                <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-3xl flex items-center justify-center">
-                    <i class="fa-solid fa-flask text-xl"></i>
-                </div>
-                <span class="text-xs font-black text-slate-700 uppercase tracking-tighter">မြေဩဇာတွက်စက်</span>
+            <a href="weather.html" class="bg-white p-5 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center gap-2">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-cloud-sun"></i></div>
+                <span class="text-[10px] font-black uppercase">Weather</span>
             </a>
         </div>
 
+        <div class="bg-white p-5 rounded-[2.5rem] shadow-sm border border-slate-100">
+            <p class="text-[10px] text-slate-400 font-black mb-3 uppercase">Developer Support</p>
+            <div class="flex justify-between text-center px-2">
+                <a href="tel:09123456789" class="text-green-600"><i class="fa-solid fa-phone text-2xl mb-1"></i><p class="text-[9px] font-bold">Call</p></a>
+                <a href="https://m.me/yourusername" class="text-blue-500"><i class="fa-brands fa-facebook-messenger text-2xl mb-1"></i><p class="text-[9px] font-bold">Messenger</p></a>
+                <a href="https://poe.com/Kachin_Agri_Bot" class="text-purple-600"><i class="fa-solid fa-robot text-2xl mb-1"></i><p class="text-[9px] font-bold">AI Chat</p></a>
+            </div>
+        </div>
     </main>
 
-    <div class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t border-slate-100 p-4 flex justify-around items-center z-50">
+    <div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t p-4 flex justify-around z-50">
         <a href="index.html" class="text-green-700"><i class="fa-solid fa-house text-xl"></i></a>
-        <a href="ai.html" class="text-slate-300"><i class="fa-solid fa-robot text-xl"></i></a>
-        <a href="weather.html" class="text-slate-300"><i class="fa-solid fa-cloud-sun-rain text-xl"></i></a>
+        <a href="crops.html" class="text-slate-300"><i class="fa-solid fa-seedling text-xl"></i></a>
+        <a href="fertilizer.html" class="text-slate-300"><i class="fa-solid fa-calculator text-xl"></i></a>
+        <a href="weather.html" class="text-slate-300"><i class="fa-solid fa-map-location-dot text-xl"></i></a>
     </div>
 
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(reg => console.log('Service Worker Registered successfully!'))
-                    .catch(err => console.error('Service Worker Registration failed:', err));
-            });
+            window.addEventListener('load', () => { navigator.serviceWorker.register('/service-worker.js'); });
         }
     </script>
-
 </body>
 </html>
