@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-Farming - Fertilizer</title>
+    <title>K-Farming - Smart Fertilizer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -16,7 +16,7 @@
             </a>
             <div>
                 <h1 class="text-xl font-black">မြေဩဇာတွက်စက်</h1>
-                <p class="text-[10px] opacity-70 uppercase font-bold tracking-tighter">NPK Calculator</p>
+                <p class="text-[10px] opacity-70 uppercase font-bold">Crop-Specific Logic</p>
             </div>
         </div>
     </header>
@@ -25,29 +25,41 @@
         <section class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100">
             <div class="space-y-4">
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">NPK အချိုး ရွေးပါ</label>
-                    <select id="ratio" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl outline-none font-bold text-slate-700">
-                        <option value="21-21-21">21:21:21 (အပင်ကြီးထွားရန်)</option>
-                        <option value="15-15-15">15:15:15 (အာဟာရမျှတစေရန်)</option>
-                        <option value="0-42-56">0:42:56 (အပွင့်/အသီးအတွက်)</option>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">စိုက်ပျိုးသည့် သီးနှံ</label>
+                    <select id="cropType" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl outline-none font-bold text-slate-700">
+                        <option value="soybean">ပဲပုပ် (Soybean)</option>
+                        <option value="rice">စပါး (Rice)</option>
+                        <option value="maize">ပြောင်း (Maize)</option>
                     </select>
                 </div>
+
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">ပမာဏ (ပိဿာ/ဘူး)</label>
-                    <input id="amount" type="number" value="10" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl outline-none font-bold">
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">စိုက်ဧရိယာ (ဧက)</label>
+                    <input id="area" type="number" value="1" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl outline-none font-bold text-slate-700">
                 </div>
-                <button onclick="calculate()" class="w-full bg-green-600 text-white font-black py-4 rounded-2xl shadow-lg active:scale-95 transition-all">တွက်ချက်မည်</button>
+
+                <button onclick="calculateSmart()" class="w-full bg-green-600 text-white font-black py-4 rounded-2xl shadow-lg active:scale-95 transition-all uppercase">တွက်ချက်မည်</button>
             </div>
         </section>
 
         <div id="result" class="hidden space-y-3">
             <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border-2 border-green-100">
-                <h3 class="text-[10px] font-black text-slate-400 uppercase mb-4">လိုအပ်သော ပမာဏများ</h3>
-                <div class="space-y-3">
-                    <div class="flex justify-between font-bold"><span>Urea:</span><span id="urea-res" class="text-green-700"></span></div>
-                    <div class="flex justify-between font-bold"><span>TSP:</span><span id="tsp-res" class="text-green-700"></span></div>
-                    <div class="flex justify-between font-bold"><span>MOP:</span><span id="mop-res" class="text-green-700"></span></div>
+                <h3 id="resultTitle" class="text-[10px] font-black text-slate-400 uppercase mb-4 text-center">လိုအပ်သော အိတ်အရေအတွက်</h3>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="text-center p-3 bg-slate-50 rounded-2xl">
+                        <p class="text-[10px] font-bold text-slate-400">UREA</p>
+                        <p id="urea-res" class="text-xl font-black text-green-700">0</p>
+                    </div>
+                    <div class="text-center p-3 bg-slate-50 rounded-2xl">
+                        <p class="text-[10px] font-bold text-slate-400">TSP</p>
+                        <p id="tsp-res" class="text-xl font-black text-green-700">0</p>
+                    </div>
+                    <div class="text-center p-3 bg-slate-50 rounded-2xl">
+                        <p class="text-[10px] font-bold text-slate-400">MOP</p>
+                        <p id="mop-res" class="text-xl font-black text-green-700">0</p>
+                    </div>
                 </div>
+                <p class="text-[10px] text-center text-slate-400 mt-4 italic font-bold">* ပမာဏများသည် ၁ ဧကစာ အိတ် (၅၀ ကီလို) နှုန်းဖြစ်ပါသည်</p>
             </div>
         </div>
     </main>
@@ -56,17 +68,35 @@
         <a href="index.html" class="text-slate-300"><i class="fa-solid fa-house text-xl"></i></a>
         <a href="crops.html" class="text-slate-300"><i class="fa-solid fa-seedling text-xl"></i></a>
         <a href="fertilizer.html" class="text-green-700"><i class="fa-solid fa-calculator text-xl"></i></a>
-        <a href="weather.html" class="text-slate-300"><i class="fa-solid fa-map-location-dot text-xl"></i></a>
+        <a href="ai.html" class="text-slate-300"><i class="fa-solid fa-robot text-xl"></i></a>
     </div>
 
     <script>
-        function calculate() {
-            const ratio = document.getElementById('ratio').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-            let [n, p, k] = ratio.split('-').map(Number);
-            document.getElementById('urea-res').innerText = ((n/46)*amount).toFixed(1);
-            document.getElementById('tsp-res').innerText = ((p/46)*amount).toFixed(1);
-            document.getElementById('mop-res').innerText = ((k/60)*amount).toFixed(1);
+        function calculateSmart() {
+            const crop = document.getElementById('cropType').value;
+            const area = parseFloat(document.getElementById('area').value);
+            
+            let urea, tsp, mop;
+
+            // သီးနှံအလိုက် ၁ ဧကစာ ပျမ်းမျှလိုအပ်ချက် (အိတ်နှုန်းဖြင့်)
+            if (crop === 'soybean') {
+                urea = 0.5 * area; 
+                tsp = 1.0 * area;
+                mop = 0.5 * area;
+            } else if (crop === 'rice') {
+                urea = 1.5 * area;
+                tsp = 0.5 * area;
+                mop = 0.5 * area;
+            } else if (crop === 'maize') {
+                urea = 2.0 * area;
+                tsp = 1.0 * area;
+                mop = 0.5 * area;
+            }
+
+            document.getElementById('urea-res').innerText = urea.toFixed(1);
+            document.getElementById('tsp-res').innerText = tsp.toFixed(1);
+            document.getElementById('mop-res').innerText = mop.toFixed(1);
+            
             document.getElementById('result').classList.remove('hidden');
         }
     </script>
