@@ -3,56 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crops Selection - Kachin Farming</title>
+    <title>K-Farming - Crops</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 font-sans pb-10">
+<body class="bg-slate-50 pb-24 font-sans">
 
-    <header class="bg-green-700 text-white p-6 rounded-b-[3rem] shadow-lg">
-        <div class="max-w-md mx-auto">
-            <a href="index.html" class="mb-4 inline-block opacity-80"><i class="fa-solid fa-arrow-left"></i> နောက်သို့</a>
-            <h1 class="text-2xl font-black italic">သီးနှံအမျိုးအစားများ</h1>
-            <p class="text-xs opacity-70 mt-1">မိမိစိုက်ပျိုးထားသော သီးနှံကို ရွေးချယ်ပါ</p>
+    <header class="bg-green-700 text-white p-5 rounded-b-[2rem] shadow-lg">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="text-xl font-black">သီးနှံရွေးချယ်ရန်</h1>
+                <p class="text-[10px] opacity-70 uppercase font-bold">Select your crop</p>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-md mx-auto p-4 mt-4 grid grid-cols-1 gap-4">
+    <main class="p-4 space-y-4">
 
-        <div class="bg-white p-5 rounded-[2rem] border-2 border-green-500 shadow-sm flex items-center justify-between">
+        <div class="bg-white p-5 rounded-[2.5rem] border-2 border-green-500 shadow-sm flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-2xl">
                     <i class="fa-solid fa-seedling"></i>
                 </div>
                 <div>
                     <h3 class="font-bold text-slate-800">ပဲပုပ် (Soybean)</h3>
-                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">မြန်မာ/ကချင် ဒေသမျိုး</p>
+                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Kachin Region Variety</p>
                 </div>
             </div>
-            <i class="fa-solid fa-circle-check text-green-500"></i>
+            <i class="fa-solid fa-circle-check text-green-500 text-xl"></i>
         </div>
 
-        <div class="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm flex items-center gap-4 opacity-50">
+        <div class="bg-white p-5 rounded-[2.5rem] border border-slate-100 shadow-sm flex items-center gap-4 opacity-60">
             <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl">
                 <i class="fa-solid fa-wheat-awn"></i>
             </div>
             <div>
                 <h3 class="font-bold text-slate-800">ပြောင်း (Maize)</h3>
-                <p class="text-[10px] text-slate-400 font-bold uppercase">Coming Soon</p>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Coming Soon</p>
             </div>
         </div>
 
-        <div class="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm flex items-center gap-4 opacity-50">
-            <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-2xl">
-                <i class="fa-solid fa-pepper-hot"></i>
+        <div class="bg-gradient-to-br from-green-600 to-green-800 p-6 rounded-[2.5rem] shadow-xl mt-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="bg-white/20 p-3 rounded-2xl">
+                    <i class="fa-solid fa-robot text-white text-2xl"></i>
+                </div>
+                <span class="bg-white/10 text-white text-[9px] px-3 py-1 rounded-full border border-white/20 font-bold">24/7 Support</span>
             </div>
-            <div>
-                <h3 class="font-bold text-slate-800">ငရုတ် (Chili)</h3>
-                <p class="text-[10px] text-slate-400 font-bold uppercase">Coming Soon</p>
-            </div>
+            <h3 class="text-white font-black text-lg leading-tight">အခြားသီးနှံများအတွက်<br>AI ကို မေးမြန်းပါ</h3>
+            <p class="text-green-100 text-[11px] mt-2 leading-relaxed">
+                စပါး၊ ငရုတ် နှင့် အခြားသီးနှံများအတွက် စိုက်ပျိုးနည်းများကို ကချင်_Agri_Bot ထံတွင် တိုက်ရိုက်မေးမြန်းနိုင်ပါသည်။
+            </p>
+            <a href="https://poe.com/Kachin_Agri_Bot" target="_blank" class="block mt-5 bg-white text-green-700 text-center py-3 rounded-2xl text-xs font-black uppercase shadow-lg active:scale-95 transition-transform">
+                Open Agri Bot
+            </a>
         </div>
 
     </main>
+
+    <div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t p-4 flex justify-around z-50">
+        <a href="index.html" class="text-slate-300"><i class="fa-solid fa-house text-xl"></i></a>
+        <a href="crops.html" class="text-green-700"><i class="fa-solid fa-seedling text-xl"></i></a>
+        <a href="fertilizer.html" class="text-slate-300"><i class="fa-solid fa-calculator text-xl"></i></a>
+        <a href="weather.html" class="text-slate-300"><i class="fa-solid fa-map-location-dot text-xl"></i></a>
+    </div>
 
 </body>
 </html>
